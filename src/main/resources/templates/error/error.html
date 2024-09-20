@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${status} + ' ' + ${statusText}"></title>
+</head>
+<body>
+<h1 th:text="${status} + ' ' + ${statusText}"></h1>
+<p th:text="'Ocurrió un error con el estado: ' + ${status} + ' - ' + ${statusText}"></p>
+<img th:src="'https://httpstatusdogs.com/img/'+${status}+'.jpg'" alt="Error Image">
+</body>
+</html>
