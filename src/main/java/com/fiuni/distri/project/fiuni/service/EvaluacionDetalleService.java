@@ -62,7 +62,7 @@ public class EvaluacionDetalleService {
         Page<EvaluacionDetalle> evaluacionDetallePage = evaluacionDetalleDao.findAll(spec, pageable);
         Page<EvaluacionDetalleDto> evaluacionDetalleDtos = evaluacionDetallePage.map(this::mapToDto);
         evaluacionDetalleDtos.forEach(evaluacionDetalleDto ->
-                cacheRedisService.setWithDefaultTTL("beneficioDetalle", "" + evaluacionDetalleDto.getId(), evaluacionDetalleDto)
+                cacheRedisService.setWithDefaultTTL("EvaluacionDetalle", "" + evaluacionDetalleDto.getId(), evaluacionDetalleDto)
         );
         return evaluacionDetalleDtos;
     }
@@ -95,7 +95,7 @@ public class EvaluacionDetalleService {
     }
 
     // Método para actualizar completamente un detalle de evaluación
-    @CacheEvict(value = "evaluacionDetalle", key = "#id")
+    //@CacheEvict(value = "evaluacionDetalle", key = "#id")
     @CachePut(value = "evaluacionDetalle", key = "#id")
     public EvaluacionDetalleDto actualizarEvaluacionDetalle(Integer id, EvaluacionDetalleDto evaluacionDetalleDto) {
         EvaluacionDetalle evaluacionDetalleExistente = evaluacionDetalleDao.findById(id)

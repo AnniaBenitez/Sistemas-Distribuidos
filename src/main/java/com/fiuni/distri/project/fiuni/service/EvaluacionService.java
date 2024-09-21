@@ -50,7 +50,6 @@ public class EvaluacionService {
     }
 
     // Método para actualizar una evaluación
-    @CacheEvict(value = "evaluacion", key = "#id")
     @CachePut(value = "evaluacion", key = "#id")
     public EvaluacionDto actualizarEvaluacion(Integer id, EvaluacionDto evaluacionDto) {
         Evaluacion evaluacionExistente = evaluacionDao.findById(id)
