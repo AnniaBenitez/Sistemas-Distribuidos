@@ -2,6 +2,7 @@ package com.fiuni.distri.project.fiuni.controllers;
 
 import com.fiuni.distri.project.fiuni.domain.Evaluacion;
 import com.fiuni.distri.project.fiuni.dto.EvaluacionDto;
+import com.fiuni.distri.project.fiuni.dto.ResponseDto;
 import com.fiuni.distri.project.fiuni.service.EvaluacionService;
 import com.fiuni.distri.project.fiuni.specifications.EvaluacionSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,7 @@ public class EvaluacionController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<EvaluacionDto>> obtenerTodos(
+    public ResponseEntity<ResponseDto<Page<EvaluacionDto>>> obtenerTodos(
             @RequestParam(name = "fecha", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fecha,
             @RequestParam(name = "descripcion", required = false) String descripcion,
             @RequestParam(name = "puntaje_general", required = false) BigDecimal puntajeGeneral,
@@ -58,7 +59,7 @@ public class EvaluacionController {
 
         // Llamar al servicio con las especificaciones y paginación
         Page<EvaluacionDto> dtos = evaluacionService.obtenerTodos(specification, pageable);
-        return ResponseEntity.ok(dtos);
+        return ResponseEntity.ok(new ResponseDto<>(200, true,"exisoto", dtos, null));
     }
 
     // Actualizar evaluación por ID

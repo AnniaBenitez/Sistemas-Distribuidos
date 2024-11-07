@@ -39,7 +39,7 @@ public class BeneficioService {
         return modelMapper.map(savedBeneficio, BeneficioDto.class);
     }
 
-    @CacheEvict(value = "beneficio", key = "#id")
+    //@CacheEvict(value = "beneficio", key = "#id")
     @CachePut(value = "beneficio", key = "#id")
     public BeneficioDto actualizarBeneficio(Integer id, BeneficioDto beneficioDTO) {
         // Paso 1: Obtener la entidad existente

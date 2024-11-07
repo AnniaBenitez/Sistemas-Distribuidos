@@ -2,6 +2,7 @@ package com.fiuni.distri.project.fiuni.controllers;
 
 import com.fiuni.distri.project.fiuni.domain.BeneficioDetalle;
 import com.fiuni.distri.project.fiuni.dto.BeneficioDetalleDto;
+import com.fiuni.distri.project.fiuni.dto.ResponseDto;
 import com.fiuni.distri.project.fiuni.service.BeneficioDetalleService;
 import com.fiuni.distri.project.fiuni.specifications.BeneficioDetalleSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,7 @@ public class BeneficioDetalleController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<BeneficioDetalleDto>> obtenerTodos(
+    public ResponseEntity<ResponseDto<Page<BeneficioDetalleDto>>> obtenerTodos(
             @RequestParam(name = "beneficio_id", required = false) Integer beneficioId,
             @RequestParam(name = "monto", required = false) Double monto,
             @RequestParam(name = "empleado_id", required = false) Integer empleadoId,
@@ -55,7 +56,7 @@ public class BeneficioDetalleController {
                 .and(beneficioDetalleSpecification.isActivo(activo));
 
         Page<BeneficioDetalleDto> dtos = beneficioDetalleService.obtenerTodos(spec, pageable);
-        return ResponseEntity.ok(dtos);
+        return ResponseEntity.ok(new ResponseDto<>(200, true,"exisoto", dtos, null));
     }
 
     @PutMapping("/{id}")

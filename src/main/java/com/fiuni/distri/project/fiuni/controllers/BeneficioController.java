@@ -2,6 +2,7 @@ package com.fiuni.distri.project.fiuni.controllers;
 
 import com.fiuni.distri.project.fiuni.domain.Beneficio;
 import com.fiuni.distri.project.fiuni.dto.BeneficioDto;
+import com.fiuni.distri.project.fiuni.dto.ResponseDto;
 import com.fiuni.distri.project.fiuni.service.BeneficioService;
 import com.fiuni.distri.project.fiuni.specifications.BeneficioSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,7 @@ public class BeneficioController {
 
 
     @GetMapping
-    public ResponseEntity<Page<BeneficioDto>> obtenerTodos(
+    public ResponseEntity<ResponseDto<Page<BeneficioDto>>> obtenerTodos(
             @RequestParam(name = "nombre", required = false) String nombre,
             @RequestParam(name = "porcentaje_de_sueldo", required = false) BigDecimal porcentajeDeSueldo,
             @RequestParam(name = "activo", required = false) Boolean activo,
@@ -59,7 +60,7 @@ public class BeneficioController {
         // Llamar al servicio pasándole la especificación y el pageable
         Page<BeneficioDto> dtos = beneficioService.obtenerTodos(specification, pageable);
 
-        return ResponseEntity.ok(dtos);
+        return ResponseEntity.ok(new ResponseDto<>(200, true,"exisoto", dtos, null));
     }
 
 
@@ -69,7 +70,7 @@ public class BeneficioController {
         return ResponseEntity.ok(actualizado);
     }
 
-    @DeleteMapping("/beneficio/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> eliminarBeneficio(@PathVariable int id) {
         String respuesta = beneficioService.eliminarPorId(id);
         return ResponseEntity.ok(respuesta);

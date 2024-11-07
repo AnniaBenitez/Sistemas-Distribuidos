@@ -57,7 +57,7 @@ public class BeneficioDetalleService {
     }
 
     // Método para actualizar un detalle de beneficio
-    @CacheEvict(value = "beneficioDetalle", key = "#id")
+    //@CacheEvict(value = "beneficioDetalle", key = "#id")
     @CachePut(value = "beneficioDetalle", key = "#id")
     public BeneficioDetalleDto actualizarBeneficioDetalle(int id, BeneficioDetalleDto beneficioDetalleDTO) {
         BeneficioDetalle beneficioDetalleExistente = beneficioDetalleDao.findById(id)

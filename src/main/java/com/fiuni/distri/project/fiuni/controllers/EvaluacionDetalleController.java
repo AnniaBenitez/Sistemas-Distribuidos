@@ -2,6 +2,7 @@ package com.fiuni.distri.project.fiuni.controllers;
 
 import com.fiuni.distri.project.fiuni.domain.EvaluacionDetalle;
 import com.fiuni.distri.project.fiuni.dto.EvaluacionDetalleDto;
+import com.fiuni.distri.project.fiuni.dto.ResponseDto;
 import com.fiuni.distri.project.fiuni.service.EvaluacionDetalleService;
 import com.fiuni.distri.project.fiuni.specifications.EvaluacionDetalleSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class EvaluacionDetalleController {
 
 
     @GetMapping
-    public ResponseEntity<Page<EvaluacionDetalleDto>> obtenerTodos(
+    public ResponseEntity<ResponseDto<Page<EvaluacionDetalleDto>>> obtenerTodos(
             @RequestParam(name = "evaluacion_id", required = false) Integer evaluacionId,
             @RequestParam(name = "criterio", required = false) String criterio,
             @RequestParam(name = "puntaje", required = false) Integer puntaje,
@@ -53,7 +54,7 @@ public class EvaluacionDetalleController {
         // Llamar al servicio con la specification
         Page<EvaluacionDetalleDto> dtos = evaluacionDetalleService.obtenerTodos(specification, pageable);
 
-        return ResponseEntity.ok(dtos);
+        return ResponseEntity.ok(new ResponseDto<>(200, true,"exisoto", dtos, null));
     }
 
 
@@ -63,7 +64,7 @@ public class EvaluacionDetalleController {
         return ResponseEntity.ok(actualizado);
     }
 
-    @DeleteMapping("/detalle/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> eliminarEvaluacionDetalle(@PathVariable int id) {
         String respuesta = evaluacionDetalleService.eliminarPorId(id);
         return ResponseEntity.ok(respuesta);
